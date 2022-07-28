@@ -1,0 +1,11 @@
+[package]
+name       	= "various"
+description	= "Test various snippets"
+version    	= "0.1.0"
+edition    	= "2021"
+license    	= "MIT"
+
+[dependencies]
+# grep-regex	= "0.1.9"
+# lazy-regex	= "2.2.2"
+# regex     	= "1.3.3"
