@@ -1,0 +1,7 @@
+[build]
+target = "x86_64-pc-windows-msvc"
+rustc-wrapper = "sccache"
+[target.x86_64-pc-windows-msvc]
+linker = "rust-lld.exe"
+[target.wasm32-unknown-unknown]
+runner = 'wasm-bindgen-test-runner'
