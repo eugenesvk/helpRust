@@ -6,12 +6,15 @@ mod argAorB;
 use crate::argAorB::{arg_a_or_b, arg_str_or_i32};
 mod fut;
 use crate::fut::    	{futures_ex};
+mod argSliceOrStr;
+use crate::argSliceOrStr::	{arg_slice_or_str};
 
 
 fn main() {
   arg_a_or_b();
   arg_str_or_i32();
   futures_ex();
+  arg_slice_or_str();
 }
 
 fn tests() {
