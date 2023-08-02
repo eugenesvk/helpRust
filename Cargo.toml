@@ -6,7 +6,8 @@ edition    	= "2021"
 license    	= "MIT"
 
 [dependencies]
-futures     	= {version="0.3", features=["executor","thread-pool"]}
+colored     	= "2.0.4" # colored output for the cli
+# futures   	= {version="0.3", features=["executor","thread-pool"]}
 # grep-regex	= "0.1.9"
 # lazy-regex	= "2.2.2"
 # regex     	= "1.3.3"
