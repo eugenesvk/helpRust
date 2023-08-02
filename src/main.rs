@@ -20,5 +20,3 @@ fn main() {
 fn tests() {
 }
 
-fn type_of      <T>(_: T) -> &'static str { type_name::<T>() }
-fn print_type_of<T>(_:&T)                 { println!("{}", std::any::type_name::<T>());}
