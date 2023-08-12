@@ -4,11 +4,15 @@ description	= "Test various snippets"
 version    	= "0.1.0"
 edition    	= "2021"
 license    	= "MIT"
+build      	= "build.rs"
+
 [workspace]
 members = ["helper"]	# relative to the workspace root
 
 [build-dependencies]
 helper     	= {path="helper"}
+phf        	= {version="0.11.1",default-features=false} # generate Rust source for PHF data structures at compile time
+phf_codegen	= "0.11.1"
 
 [dependencies]
 helper       	= {path="helper"}
