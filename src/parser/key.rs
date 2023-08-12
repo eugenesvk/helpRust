@@ -1,9 +1,7 @@
 #![allow(non_snake_case,non_upper_case_globals,non_camel_case_types,unused_imports,unused_mut,unused_variables,dead_code,unused_assignments,unused_macros)]
-// use crate::helper::alias::*;
-// use crate::helper::helper::*;
+use helper::alias 	::*;
+use helper::helper	::*;
 
-use crate::helper::alias::*;
-use crate::helper::helper::*;
 
 /*
 macro_rules! count { // stackoverflow.com/questions/34304593/counting-length-of-repetition-in-macro/34324856#34324856
