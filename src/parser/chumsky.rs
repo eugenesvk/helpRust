@@ -1,6 +1,6 @@
 // https://github.com/zesterer/chumsky/blob/main/tutorial.md
-use crate::helper::alias::*;
-use crate::helper::helper::*;
+use helper::alias 	::*;
+use helper::helper	::*;
 
 use chumsky::prelude::*;
 
