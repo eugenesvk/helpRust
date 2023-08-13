@@ -37,7 +37,13 @@ fn main() {
   // chumsky_init();
   // test_target();
   // enum_def_val();
-  key_enum_def_val();
+  // key_enum_def_val();
+  log_prints();
+  info!("@main info Mary has a little lamb");
+  debug!("@main debug Mary has a little lamb");
+  warn!("@main warn Mary has a little lamb");
+  error!("@main error Mary has a little lamb");
+
 }
 
 fn tests() {
