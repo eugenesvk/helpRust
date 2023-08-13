@@ -141,6 +141,13 @@ pub fn getAnyModList(mod_list:kModiFlag) -> kModiFlag { // get a list of AnyModi
   mod_flags_common
 }
 
+pub fn isModiDefAct(def:kModiFlag, act:kModiFlag) -> bool { // actual modifier matches the definition (def can include extra sides)
+  let defAnyMod = getAnyModList(def); // convert either to any side
+  let actAnyMod = getAnyModList(act);
+  if  (def.contains(act))     	// 1  actual   ⊂  defined  actual key combo is inside the definition
+   && (defAnyMod == actAnyMod)	// 2 ‹defined› = ‹actual›  list of side-insensitive modifiers is the same
+    {true} else {false}}
+
 pub fn key_enum_def_val() {
   let key2bit = prefill_key2bit();
 
