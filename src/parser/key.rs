@@ -94,34 +94,6 @@ impl UserAgentOS4<'_>{
 }
 */
 
-use std::{fmt, str};
-use bitflags::bitflags;
-bitflags! { #[repr(transparent)] #[derive(Default,Debug,Clone,Copy,PartialEq,Eq,PartialOrd,Ord,Hash)]
-  // If your default value is equal to 0 (which is the same value as calling empty() on the generated struct), you can simply derive Default:
-  pub struct ModiCombo: u32 {
-    // const None     	= 0b_____________0; //   0 0-flags: treated as always present; ignored when testing for emptiness
-    const LShift      	= 0b_____________1; //   1 ‹⇧
-    const LCtrl       	= 0b____________10; //   2 ‹⎈
-    const LWinCmd     	= 0b___________100; //   4 ‹◆ = ❖ Windows or ⌘ Mac  aka Super, hijacked Meta's symbol for for either Win or Cmd
-    const LAlt        	= 0b__________1000; //   8 ‹⎇
-    const RShift      	= 0b_________10000; //  16 ⇧›
-    const RCtrl       	= 0b________100000; //  32 ⎈›
-    const RWinCmd     	= 0b_______1000000; //  64 ◆› = ❖› Windows or ⌘› Mac
-    const RAlt        	= 0b______10000000; // 128 ⎇›
-    // const LHyper   	= 0b_____100000000; // 256 ‹✦ ‹✧
-    // const LMeta    	= 0b____1000000000; // 512 ‹◆
-    // const RHyper   	= 0b___10000000000; //1024 ✦› ✧›
-    // const RMeta    	= 0b__100000000000; //2048 ◆›
-    // const Caps_lock	= 0b_1000000000000; //4096 ⇪
-    // const Num_lock 	= 0b10000000000000; //8192 🔢
-    const Shift       	= Self::LShift.bits() 	| Self::RShift.bits();
-    const Ctrl        	= Self::LCtrl.bits()  	| Self::RCtrl.bits();
-    const WinCmd      	= Self::LWinCmd.bits()	| Self::RWinCmd.bits();
-    const Alt         	= Self::LAlt.bits()   	| Self::RAlt.bits();
-    const Left        	= Self::LShift.bits() 	| Self::LCtrl.bits() | Self::LWinCmd.bits() | Self::LAlt.bits();
-    const Reft        	= Self::RShift.bits() 	| Self::RCtrl.bits() | Self::RWinCmd.bits() | Self::RAlt.bits();
-    // const Hyper    	= Self::LHyper.bits() 	| Self::RHyper.bits();
-    // const Meta     	= Self::LMeta.bits()  	| Self::RMeta.bits();
   }
 }
 // impl fmt::Debug   for ModiCombo	{fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {fmt::Debug  ::fmt(&self.0,f)}}
@@ -131,54 +103,6 @@ impl str::FromStr for ModiCombo   	{
   fn from_str(flags: &str) -> Result<Self, Self::Err> {Ok(Self(flags.parse()?))}
 }
 
-// todo : add a symbol for AltCmd since it's the same physical location
-const symLeft_atL 	:[&str;4]	= ["left","left_","left ","‹"];
-const symRight_atL	:[&str;3]	= ["right","right_","right "];
-const symRight_atR	:[&str;1]	= ["›"];
-const symShift    	:[&str;3]	= ["sh","shift","⇧"];
-const symCtrl     	:[&str;5]	= ["ctrl","control","⎈","⌃","^"];
-const symWinCmd   	:[&str;5]	= ["cmd","command","◆","⌘","❖"];
-const symAlt      	:[&str;5]	= ["alt","opt","option","⎇","⌥"];
-
-
-use indexmap	::{IndexMap, IndexSet};
-pub fn prefill_key2bit() -> IndexMap<String, ModiCombo> {
-  let mut key2bit:IndexMap<String, ModiCombo> = IndexMap::new();
-  for symKey in symShift {
-    {const key_bit:ModiCombo = ModiCombo::LShift;
-    for symSide  in symLeft_atL  { key2bit.insert(symSide.to_string() + symKey , key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::RShift;
-    for symSide  in symRight_atL { key2bit.insert(symSide.to_string() + symKey , key_bit );}
-    for symSide  in symRight_atR { key2bit.insert(symKey .to_string() + symSide, key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::Shift;
-                                   key2bit.insert(symKey .to_string()          , key_bit ); }  }
-  for symKey in symCtrl {
-    {const key_bit:ModiCombo = ModiCombo::LCtrl;
-    for symSide  in symLeft_atL  { key2bit.insert(symSide.to_string() + symKey , key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::RCtrl;
-    for symSide  in symRight_atL { key2bit.insert(symSide.to_string() + symKey , key_bit );}
-    for symSide  in symRight_atR { key2bit.insert(symKey .to_string() + symSide, key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::Ctrl;
-                                   key2bit.insert(symKey .to_string()          , key_bit ); }  }
-  for symKey in symWinCmd {
-    {const key_bit:ModiCombo = ModiCombo::LWinCmd;
-    for symSide  in symLeft_atL  { key2bit.insert(symSide.to_string() + symKey , key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::RWinCmd;
-    for symSide  in symRight_atL { key2bit.insert(symSide.to_string() + symKey , key_bit );}
-    for symSide  in symRight_atR { key2bit.insert(symKey .to_string() + symSide, key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::WinCmd;
-                                   key2bit.insert(symKey .to_string()          , key_bit ); }  }
-  for symKey in symAlt {
-    {const key_bit:ModiCombo = ModiCombo::LAlt;
-    for symSide  in symLeft_atL  { key2bit.insert(symSide.to_string() + symKey , key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::RAlt;
-    for symSide  in symRight_atL { key2bit.insert(symSide.to_string() + symKey , key_bit );}
-    for symSide  in symRight_atR { key2bit.insert(symKey .to_string() + symSide, key_bit );}}
-    {const key_bit:ModiCombo = ModiCombo::Alt;
-                                   key2bit.insert(symKey .to_string()          , key_bit ); }  }
-  // for (k,v) in key2bit.iter() { p!("{k}={v}");  }
-  // key2bit= right⎇=RAlt right_⎇=RAlt ⎇›=RAlt ... ⌥=LAlt | RAlt ordered from left/right keys to either
-  key2bit
 }
 
 pub fn key_enum_def_val() {
