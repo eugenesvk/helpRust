@@ -7,7 +7,7 @@ license    	= "MIT"
 build      	= "build.rs"
 
 [workspace]
-members = ["helper"]	# relative to the workspace root
+members = ["helper","proc_macro"]	# relative to the workspace root
 
 [build-dependencies]
 helper     	= {path="helper"}
@@ -16,6 +16,7 @@ phf_codegen	= "0.11.1"
 
 [dependencies]
 helper       	= {path="helper"}
+proc_macro   	= {path="proc_macro"}
 bitflags     	= "2.3.3"
 chumsky      	= {git="https://github.com/zesterer/chumsky",version="1.0.0-alpha.4"}
 colored      	= "2.0.4" # colored output for the cli
