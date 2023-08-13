@@ -164,19 +164,6 @@ pub fn key_enum_def_val() {
   else { p!("matches")}; // todo
 }
 
-  p!("   ××pre¦{}¦", key_seq_user_def_mod);
-  for (k,v) in key2bit.iter() {
-    if parse_key_seq_user_def.contains(k) {key_seq_user_def_mod |= *v; p!("contains¦{v}¦");}
-  }
-  p!("   ××pos¦{}¦", key_seq_user_def_mod);
-
-  // todo:
-  // proper match: 2 mandatory
-    // actual ⊂ defined
-    // Left only defined  NOT > actual ()
-    // Right only defined NOT > actual
-  // find a way to separate last key in the definition which can be a modifier key from left-side modifiers before matching!
-
 #[cfg(test)] mod tests { // show stdout: cargo test -- --color always --nocapture
   use super         	::*;
   use helper::alias 	::*;
