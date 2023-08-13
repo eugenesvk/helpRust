@@ -158,6 +158,25 @@ pub fn key_enum_def_val() {
   // p!("¦{}¦", "⎈".to_lowercase()); //⎈
 
 
+  #[test] fn key_combos() {
+    let mut modiDefAct:IndexMap<&str, kModiFlag> = IndexMap::new();
+    // definition vs actual
+    modiDefAct.insert("‹⇧ ⎈›"	, km::LShift | km::RCtrl);
+    modiDefAct.insert("‹⇧ ⎈ "	, km::LShift | km::RCtrl);
+    modiDefAct.insert("‹⇧ ⎈" 	, km::LShift | km::LCtrl);
+    modiDefAct.insert(" ⇧ ⎈" 	, km::RShift | km::RCtrl);
+    p!("{}{} compare a string of modifiers like {} to actual modifier flags like {}"
+       ,"ƒ".yellow(),"key_combos","‹⇧ ⎈›".blue(),(km::LShift | km::RCtrl).to_string().blue());
+    for (def_key_combo, act_modi) in modiDefAct.iter() {
+      let (def_modi,_) = match parse_key_definition(&(def_key_combo.to_string()+"x"), &key2bit) {
+        Ok((modi,key))	=> (modi,key),
+        Err(e)        	=> {panic!("Couln't parse the key ‘{}’ to match it to ‘{}’ due to ‘{}’",def_key_combo.blue(),act_modi,e.red());},
+      };
+      p!("  def_modi {} from {}",def_modi.to_string().blue(),def_key_combo.blue());
+      p!("  act_modi {}",act_modi.to_string().blue());
+      assert_eq!{true,isModiDefAct(def_modi,*act_modi)};
+    }
+  }
 
   // let anyshift:ModiCombo = ModiCombo::LShift | ModiCombo::RShift;
   // p!("anyshift=key_seq_user_def_mod¦{}¦", key_seq_user_def_mod==anyshift);
