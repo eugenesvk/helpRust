@@ -9,8 +9,7 @@ const time_fmt_s:&str = "%_M:%_S"; //23: 4: 4
 const time_fmt_f:&str = "%a %_d %b %_y %_H:%_M"; //Tue 10 Jan 23 23: 4
 const time_fmt  :&str = time_fmt_s;
 
-// todo: convert to env var style to allow env vars overriding this?, at least levels
-pub fn log_init() {
+pub fn log_init() { // todo: convert to env var style to allow env vars overriding this?, at least levels
   // let env = Env::default()  // `Env` lets us tweak what env vars to read and their defaults
   //   .filter_or("MY_LOG_LEVEL", "trace")
   //   .write_style_or("MY_LOG_STYLE", "always");
@@ -39,9 +38,9 @@ pub fn log_init() {
       };
       // let ts = buf.timestamp();
       let ts = Local::now().format(time_fmt);
-      // style.set_bg(Color::Yellow).set_bold(true);
-      writeln!(buf, "{}{} {} {}", ts, level_style.value(level_icon), style.value(record.args()), record.target()
+      writeln!(buf,"{} {} {} {}", ts,record.target(), level_style.value(level_icon), style.value(record.args())
       )})
+    .format_target(true)
     .init()
 }
 pub fn log_prints() {
