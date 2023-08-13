@@ -17,8 +17,9 @@ pub fn log_init() { // todo: convert to env var style to allow env vars overridi
 
   let mut builder = Builder::new();
   builder
-    .filter_module("various"         ,LevelFilter::Warn ) // filter for a specific module
-    .filter_module("various::logging",LevelFilter::max()) // filter log at most the specified level provided
+    .filter_module("various"             ,LevelFilter::Warn ) // filter for a specific module
+    .filter_module("various::logging"    ,LevelFilter::max()) // filter log at most the specified level provided
+    .filter_module("various::parser::key",LevelFilter::Warn)
     .format(|buf, record| {
       let mut style      	= buf.style();
       let mut level_style	= buf.style();
