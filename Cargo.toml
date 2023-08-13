@@ -18,12 +18,15 @@ indexmap   	= "2.0.0"
 [dependencies]
 helper       	= {path="helper"}
 proc_macro   	= {path="proc_macro"}
+log          	= {version="0.4.20",features=["release_max_level_off"]} # disable all log code in release
 bitflags     	= "2.3.3"
 chumsky      	= {git="https://github.com/zesterer/chumsky",version="1.0.0-alpha.4"}
 colored      	= "2.0.4" # colored output for the cli
 enum-iterator	= "1.4.1"
 indexmap     	= "2.0.0"
 phf          	= {version="0.11",features=["macros"]}
+env_logger = "0.10.0"
+chrono = "0.4.26"
 # futures    	= {version="0.3", features=["executor","thread-pool"]}
 # grep-regex 	= "0.1.9"
 # lazy-regex 	= "2.2.2"
