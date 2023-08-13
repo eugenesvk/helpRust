@@ -1,6 +1,7 @@
 #![allow(non_snake_case,non_upper_case_globals,non_camel_case_types,unused_imports,unused_mut,unused_variables,dead_code,unused_assignments,unused_macros)]
 use helper::alias 	::*;
 use helper::helper	::*;
+use helper::key   	::kModiFlag;
 
 
 /*
@@ -94,7 +95,34 @@ impl UserAgentOS4<'_>{
 }
 */
 
-  }
+const kModiFlagAll	:[&kModiFlag;4]	= [&kModiFlag::Shift,&kModiFlag::Ctrl,&kModiFlag::Cmd,&kModiFlag::Alt];
+
+use indexmap	::{IndexMap,IndexSet};
+use phf     	::OrderedMap;
+pub fn parse_key_definition<'a>(key_def:&str, mod_map:&'a OrderedMap<&str, kModiFlag>) -> Result<(kModiFlag,String), &'a str>{
+  // todo replace with key crate nenum value
+  // todo: fix last symbol to a better key search e.g. ‹⇧ is two symbols
+  let mut key_def:String = key_def.to_lowercase().to_string();       	// '⇧› control+alt,command- X'
+  key_def = key_def.chars().filter(|c| !c.is_whitespace()).collect();	// '⇧›control+alt,command-X' remove Unicode whitespace
+
+  // 1. find the final key (could also be the a "modifier" like ⇧ key, so need to remove it for further parsing of real modifiers)
+  let mut key_last:&str = "";
+  for (k,_) in mod_map.entries() { // '‹⇧' : 'km::LShift'
+    if key_def.ends_with(k) {key_last = k; break;} }
+  let mut tmp = [0u8; 4]; // avoid heap allocation, also no 'temp value dropped' stackoverflow.com/a/67898224/20361194
+  if key_last.is_empty() { // key isn't a modifier, so use the last symbol
+    key_last = match key_def.pop() {
+      Some(c)	=> c.encode_utf8(&mut tmp),
+      None   	=> {return Err("Could't find the key in this combo!")},}
+  }; trace!("3 key_def {}{}",key_def.blue(),key_last.yellow());
+
+  // 2. find a set of key modifiers (remove each found to avoid multiple matches for ‹⇧ and later by ⇧)
+  let mut mod_flags:kModiFlag = Default::default(); trace!("mod_flags pre {}",mod_flags.to_string().blue());
+  for (k,v) in mod_map.entries() {
+    if key_def.contains(k) {mod_flags |= *v; key_def = key_def.replacen(k,"",1); p!("contains¦{v}¦");}}
+  trace!("mod_flags pos {}",key_def.blue());
+
+  Ok((mod_flags,key_last.to_string()))
 }
 
 }
