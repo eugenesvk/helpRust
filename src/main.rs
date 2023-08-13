@@ -3,6 +3,8 @@ use helper::alias 	::*;
 use helper::helper	::*;
 use proc_macro    	::*;
 
+#[macro_use] extern crate log;
+
 // mod argAorB;
 // mod fut;
 // mod argSliceOrStr;
@@ -10,6 +12,7 @@ use proc_macro    	::*;
 pub mod fs                           	{ pub mod path; }
 // pub mod deftype                   	{ pub mod enum_def_val; }
 pub mod tests                        	{ pub mod test_target; }
+pub mod logging                      	;
 // pub mod parser                    	{ pub mod chumsky; }
 // use crate::argAorB::              	{arg_a_or_b, arg_str_or_i32};
 // use crate::fut::                  	{futures_ex};
@@ -21,8 +24,10 @@ pub mod tests                        	{ pub mod test_target; }
 // use crate::tests::test_target::   	{test_target};
 pub mod parser                       	{pub mod key;}
 use crate::parser::key::             	{key_enum_def_val};
+use crate::logging::                 	{log_init,log_prints};
 
 fn main() {
+  log_init();
   // arg_a_or_b();
   // arg_str_or_i32();
   // futures_ex();
