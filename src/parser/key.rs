@@ -177,23 +177,8 @@ pub fn key_enum_def_val() {
       assert_eq!{true,isModiDefAct(def_modi,*act_modi)};
     }
   }
-
-  // let anyshift:ModiCombo = ModiCombo::LShift | ModiCombo::RShift;
-  // p!("anyshift=key_seq_user_def_mod¦{}¦", key_seq_user_def_mod==anyshift);
-  // key_seq_user_def_mod = ModiCombo::LShift | ModiCombo::RAlt;
-  // for (st,combo) in key_seq_user_def_mod.iter_names(){
-  //   p!("st=¦{st}¦{} combo=¦{combo}¦{}",type_of(st),type_of(combo));
-  //   // pt(combo);
-  // }
-  // for st in key_seq_user_def_mod.iter(){
-  //   p!("st1=¦{st}¦{}",type_of(st));
-  // }
-  // p!("frombit¦{}¦", ModiCombo::from_bits(0b00000001).unwrap());
-  // p!("from_name¦{:?}¦", ModiCombo::from_name("LShift").unwrap());
-  // // p!("name¦{:?}¦", ModiCombo::LShift.name()); /fails, name is only for Flags, and you get those
-  // print_type_of(&ModiCombo::LShift);
-
-
+  // #[test] fn fail() { panic!("{}Make this test fail",a.to_string().green());}
+  #[test]#[ignore="not yet implemented"] fn my_future_test() {}
 }
 
 
