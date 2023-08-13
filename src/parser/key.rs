@@ -176,8 +176,16 @@ pub fn key_enum_def_val() {
     // Right only defined NOT > actual
   // find a way to separate last key in the definition which can be a modifier key from left-side modifiers before matching!
 
+#[cfg(test)] mod tests { // show stdout: cargo test -- --color always --nocapture
+  use super         	::*;
+  use helper::alias 	::*;
+  use helper::helper	::*;
 
+  use crate::parser::key	::{kModiFlag, parse_key_definition, kModiFlag as km};
+  use indexmap          	::{IndexMap, IndexSet};
+  use colored           	::Colorize;
 
+  include!(concat!(env!("OUT_DIR"), "/key2bit_codegen.rs"));
 
   #[test] fn key_combos() {
     let mut modiDefAct:IndexMap<&str, kModiFlag> = IndexMap::new();
