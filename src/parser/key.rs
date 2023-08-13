@@ -152,23 +152,6 @@ pub fn key_enum_def_val() {
   let key2bit = prefill_key2bit();
 
   // todo: add a proper parser without having to replace substrings?
-  const key_seq_user_def	: &str = " ⇧› control+alt,command- X ";
-  // let mut parse_key_seq_user_def = key_seq_user_def.trim(); // clean up: "⇧› control+alt,command- X";
-  let mut parse_key_seq_user_def:String = key_seq_user_def.chars().filter(|c| !c.is_whitespace()).collect(); // remove any Unicode whitespace
-  p!("parse_key_seq_user_def¦{parse_key_seq_user_def}¦"); //todo del
-
-  // 1. find the final key (could also be the same as a modifier key)
-  let mut key_seq_user_def_key:&str = ""; // todo replace with key crate nenum value
-  for (k,v) in key2bit.iter() {
-    if parse_key_seq_user_def.ends_with(k) {key_seq_user_def_key = k; break;} }
-  p!("1 key_seq_user_def_key¦{key_seq_user_def_key}¦");
-  let mut tmp = [0u8; 4]; // avoid heap allocation, also no 'temp value dropped' stackoverflow.com/a/67898224/20361194
-  if key_seq_user_def_key.is_empty() { // key isn't a modifier, so use the last symbol
-    key_seq_user_def_key = match parse_key_seq_user_def.pop() {
-      Some(c)	=> c.encode_utf8(&mut tmp),
-      None   	=> "",
-    }
-  }
   if key_seq_user_def_key.is_empty() { p!("could't find the key, returning"); return } // todo add appropriate return type error
   p!("2 key_seq_user_def_key¦{key_seq_user_def_key}¦");
   p!("2 parse_key_seq_user_def¦{parse_key_seq_user_def}¦"); //todo del
