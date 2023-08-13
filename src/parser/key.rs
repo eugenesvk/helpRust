@@ -148,8 +148,9 @@ pub fn isModiDefAct(def:kModiFlag, act:kModiFlag) -> bool { // actual modifier m
    && (defAnyMod == actAnyMod)	// 2 ‹defined› = ‹actual›  list of side-insensitive modifiers is the same
     {true} else {false}}
 
-pub fn key_enum_def_val() {
+include!(concat!(env!("OUT_DIR"),"/key2bit_codegen.rs")); // imports static key2bit:phf::OrderedMap<&'static str,kModiFlag>
 
+pub fn key_enum_def_val() {
   // todo: add a proper parser without having to replace substrings?
   const key_seq_def	: &str = " ⇧› control+alt,command- X ";
 
