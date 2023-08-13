@@ -3,8 +3,17 @@ use helper::alias 	::*;
 use helper::helper	::*;
 use helper::key   	::kModiFlag;
 
+use colored	::Colorize;
 
+
+// todo : add a symbol for AltCmd since it's the same physical location, but do it on config parsing
+// https://w3c.github.io/uievents/tools/key-event-viewer.html tester for UI events
 /*
+why mod and modflag?
+https://github.com/pqrs-org/Karabiner-Elements/blob/main/src/share/types/modifier_flag.hpp
+https://github.com/pqrs-org/Karabiner-Elements/blob/main/src/share/manipulator/types/modifier_definition/modifier.hpp
+https://w3c.github.io/uievents/tools/key-event-viewer.html tester for UI events
+
 macro_rules! count { // stackoverflow.com/questions/34304593/counting-length-of-repetition-in-macro/34324856#34324856
   ()                	=> (0usize                  );
   ($x:tt $($xs:tt)*)	=> (1usize + count!($($xs)*));
