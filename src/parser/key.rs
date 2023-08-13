@@ -149,16 +149,19 @@ pub fn isModiDefAct(def:kModiFlag, act:kModiFlag) -> bool { // actual modifier m
     {true} else {false}}
 
 pub fn key_enum_def_val() {
-  let key2bit = prefill_key2bit();
 
   // todo: add a proper parser without having to replace substrings?
-  if key_seq_user_def_key.is_empty() { p!("could't find the key, returning"); return } // todo add appropriate return type error
-  p!("2 key_seq_user_def_key¦{key_seq_user_def_key}¦");
-  p!("2 parse_key_seq_user_def¦{parse_key_seq_user_def}¦"); //todo del
+  const key_seq_def	: &str = " ⇧› control+alt,command- X ";
 
-  let mut key_seq_user_def_mod:ModiCombo = Default::default();
-
-  p!("key_seq_user_def      ¦{key_seq_user_def}¦");
+  let (def_modi, def_key) = match parse_key_definition(key_seq_def, &key2bit) {
+    Ok((modi,key))	=> (modi,key),
+    Err(e)        	=> {p!("Couln't parse your key combo ‘{}’ due to ‘{}’",key_seq_def.blue(),e); return},
+  };
+  // let act_modi	: kModiFlag = kModiFlag::LShift | kModiFlag::LCtrl | kModiFlag::LCmd ;
+  let act_modi   	: kModiFlag = kModiFlag::RShift | kModiFlag::LAlt | kModiFlag::LCmd | kModiFlag::LCtrl;
+  if !isModiDefAct(def_modi,act_modi) {p!("modifier mismatch"); return}
+  else { p!("matches")}; // todo
+}
 
   p!("   ××pre¦{}¦", key_seq_user_def_mod);
   for (k,v) in key2bit.iter() {
@@ -174,14 +177,6 @@ pub fn key_enum_def_val() {
   // find a way to separate last key in the definition which can be a modifier key from left-side modifiers before matching!
 
 
-  // key2bit.iter().find(|&&f) f == key_seq_user_def)
-  // let desired = "control";
-  // let to_eat = Ctrl.iter().find(|&&f| f == desired); //Some("control")
-  // p!("{:?}", to_eat);
-  // let desired = "ctrl1";
-  // let to_eat = Ctrl.iter().find(|&&f| f == desired); //None
-  // p!("{:?}", to_eat);
-  // p!("¦{}¦", "⎈".to_lowercase()); //⎈
 
 
   #[test] fn key_combos() {
