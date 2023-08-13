@@ -134,6 +134,11 @@ pub fn parse_key_definition<'a>(key_def:&str, mod_map:&'a OrderedMap<&str, kModi
   Ok((mod_flags,key_last.to_string()))
 }
 
+pub fn getAnyModList(mod_list:kModiFlag) -> kModiFlag { // get a list of AnyModifier for a set of potentially side-specific list e.g., ‹⇧⎈ should yield ::Shift | ::Ctrl
+  let mut mod_flags_common:kModiFlag = Default::default();
+  for k in kModiFlagAll {
+    if mod_list.intersects(*k) {mod_flags_common.set(*k,true);}}
+  mod_flags_common
 }
 
 pub fn key_enum_def_val() {
