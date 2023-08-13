@@ -37,8 +37,13 @@ pub fn log_init() { // todo: convert to env var style to allow env vars overridi
         Level::Trace	=> "🅃",
       };
       // let ts = buf.timestamp();
+      let target = record.target();
+      let target_rmost = match target.rsplit_once("::") {
+        Some((pre,pos))	=> "→".to_string() + pos,
+        None           	=> target.to_string(),
+      };
       let ts = Local::now().format(time_fmt);
-      writeln!(buf,"{} {} {} {}", ts,record.target(), level_style.value(level_icon), style.value(record.args())
+      writeln!(buf,"{} {} {} {}", ts,target_rmost, level_style.value(level_icon), style.value(record.args())
       )})
     .format_target(true)
     .init()
