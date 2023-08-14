@@ -128,7 +128,7 @@ pub fn parse_key_definition<'a>(key_def:&str, mod_map:&'a OrderedMap<&str, kModi
   // 2. find a set of key modifiers (remove each found to avoid multiple matches for ‹⇧ and later by ⇧)
   let mut mod_flags:kModiFlag = Default::default(); trace!("mod_flags pre {}",mod_flags.to_string().blue());
   for (k,v) in mod_map.entries() {
-    if key_def.contains(k) {mod_flags |= *v; key_def = key_def.replacen(k,"",1); p!("contains¦{v}¦");}}
+    if key_def.contains(k) {mod_flags |= *v; key_def = key_def.replacen(k,"",1);}}
   trace!("mod_flags pos {}",key_def.blue());
 
   Ok((mod_flags,key_last.to_string()))
