@@ -70,7 +70,6 @@ fn main() {
   for (key, value) in key2bit {
     phf_key2bit.entry(key, &format!("{:?}",value));
   }
-  write!(&mut file, "static key2bit: phf::OrderedMap<&'static str, kModiFlag> = {}", phf_key2bit.build())
-  .unwrap();
+  write!(&mut file, "static key2bit: phf::OrderedMap<&'static str, kModiFlag> = {}", phf_key2bit.build()).unwrap();
   write!(&mut file, ";\n").unwrap();
 }
