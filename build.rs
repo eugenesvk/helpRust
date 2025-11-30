@@ -61,15 +61,15 @@ pub fn prefill_key2bit() -> IndexMap<String,kModiFlag> {
 }
 
 fn main() {
-  let     path	= Path     ::new(&env::var("OUT_DIR").unwrap()).join("key2bit_codegen.rs");
-  let mut file	= BufWriter::new(File::create(&path).unwrap());
-  pb!("path={:?}",&path.as_os_str());
+  // let     path	= Path     ::new(&env::var("OUT_DIR").unwrap()).join("key2bit_codegen.rs");
+  // let mut file	= BufWriter::new(File::create(&path).unwrap());
+  // pb!("path={:?}",&path.as_os_str());
 
-  let key2bit = prefill_key2bit();
-  let mut phf_key2bit = phf_codegen::OrderedMap::new();
-  for (key, value) in key2bit {
-    phf_key2bit.entry(key, &format!("{:?}",value));
-  }
-  write!(&mut file, "static key2bit: phf::OrderedMap<&'static str, kModiFlag> = {}", phf_key2bit.build()).unwrap();
-  write!(&mut file, ";\n").unwrap();
+  // let key2bit = prefill_key2bit();
+  // let mut phf_key2bit = phf_codegen::OrderedMap::new();
+  // for (key, value) in key2bit {
+  //   phf_key2bit.entry(key, &format!("{:?}",value));
+  // }
+  // write!(&mut file, "static key2bit: phf::OrderedMap<&'static str, kModiFlag> = {}", phf_key2bit.build()).unwrap();
+  // write!(&mut file, ";\n").unwrap();
 }
