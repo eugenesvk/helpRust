@@ -1,7 +1,7 @@
 use helper::alias::*;
 use helper::helper::*;
 
-fn paths() {
+pub fn paths() {
   use std::path::{Path, PathBuf}; // Path is a slice, PathBuf is like String owned, mutable
   let string     	= String::from("foo.txt");
   let from_string	= Path::new(&string);
