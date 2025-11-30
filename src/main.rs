@@ -26,7 +26,25 @@ pub mod parser                       	{pub mod key;}
 use crate::parser::key::             	{key_enum_def_val};
 use crate::logging::                 	{log_init,log_prints};
 
-fn main() {
+use std::process::{ExitCode, Termination};
+#[repr(u8)] pub enum CustomExit {
+  Ok   	= 0,
+  Err  	= 1,
+  Skip 	= 125,
+  Abort	= 255,}
+
+impl Termination for CustomExit {
+  fn report(self) -> ExitCode {
+    #[allow(unreachable_patterns)] match self {
+      CustomExit::Ok   	=> {},
+      CustomExit::Err  	=> p!("🛑 err",),
+      CustomExit::Skip 	=> p!("🛑 skip",),
+      CustomExit::Abort	=> p!("🛑 abort",),
+      _                	=> p!("🛑",),
+  };
+    ExitCode::from(self as u8)}}
+
+fn main() -> CustomExit {
   log_init();
   // arg_a_or_b();
   // arg_str_or_i32();
@@ -44,6 +62,7 @@ fn main() {
   warn!("@main warn Mary has a little lamb");
   error!("@main error Mary has a little lamb");
 
+  CustomExit::Ok
 }
 
 fn tests() {
