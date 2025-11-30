@@ -9,7 +9,8 @@ use proc_macro    	::*;
 // mod fut;
 // mod argSliceOrStr;
 // mod cliColor;
-pub mod fs                           	{ pub mod path; }
+// pub mod fs                        	{ pub mod path; }
+// use fs::path::                    	{paths};
 // pub mod deftype                   	{ pub mod enum_def_val; }
 pub mod tests                        	{ pub mod test_target; }
 pub mod logging                      	;
