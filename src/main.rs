@@ -22,8 +22,11 @@ pub mod logging                      	;
 // use crate::parser::chumsky::      	{chumsky_init};
 // use crate::deftype::enum_def_val::	{enum_def_val};
 // use crate::tests::test_target::   	{test_target};
-pub mod parser                       	{pub mod key;}
-use crate::parser::key::             	{key_enum_def_val};
+pub mod sync 	;
+use sync::                       	{sync};
+// use crate::mysync::               	{sync};
+// pub mod parser                    	{pub mod key;}
+// use crate::parser::key::          	{key_enum_def_val};
 use crate::logging::                 	{log_init,log_prints};
 
 use std::process::{ExitCode, Termination};
@@ -61,7 +64,7 @@ fn main() -> CustomExit {
   // debug!("@main debug Mary has a little lamb");
   // warn!("@main warn Mary has a little lamb");
   // error!("@main error Mary has a little lamb");
-
+  sync();
   CustomExit::Ok
 }
 
